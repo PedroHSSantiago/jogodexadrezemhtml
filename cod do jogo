@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Jogo de Xadrez</title>
+  <style>
+    body { display: flex; justify-content: center; margin-top: 50px; }
+    .tabuleiro { display: grid; grid-template-columns: repeat(8, 60px); }
+    .casa {
+      width: 60px; height: 60px;
+      display: flex; justify-content: center; align-items: center;
+      font-size: 32px;
+    }
+    .clara { background-color: #f0d9b5; }
+    .escura { background-color: #b58863; }
+  </style>
+</head>
+<body>
+  <div class="tabuleiro" id="tabuleiro"></div>
+
+  <script>
+  const pecasIniciais = [
+    ["♜","♞","♝","♛","♚","♝","♞","♜"],
+    ["♟","♟","♟","♟","♟","♟","♟","♟"],
+    ["","","","","","","",""],
+    ["","","","","","","",""],
+    ["","","","","","","",""],
+    ["","","","","","","",""],
+    ["♙","♙","♙","♙","♙","♙","♙","♙"],
+    ["♖","♘","♗","♕","♔","♗","♘","♖"]
+  ];
+
+  const tabuleiro = document.getElementById("tabuleiro");
+
+  let selecionada = null;
+
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      const casa = document.createElement("div");
+      casa.className = "casa " + ((i + j) % 2 === 0 ? "clara" : "escura");
+      casa.innerText = pecasIniciais[i][j];
+      casa.dataset.linha = i;
+      casa.dataset.coluna = j;
+
+      casa.addEventListener("click", () => {
+        if (selecionada) {
+          // Move a peça
+          casa.innerText = selecionada.innerText;
+          selecionada.innerText = "";
+          selecionada = null;
+        } else if (casa.innerText !== "") {
+          // Seleciona a peça
+          selecionada = casa;
+        }
+      });
+
+      tabuleiro.appendChild(casa);
+    }
+  }
+</script>
