@@ -1,2 +1,2 @@
-# jogodexadrezemhtml
-Jogo de xadrez em html
+# jogo de xadrez em html
+
